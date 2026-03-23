@@ -45,7 +45,7 @@ class CategoryPanel(QWidget):
             }
             QPushButton:hover {
                 color: #7c6af7;
-                background-color: #7c6af708;
+                background-color: #e8e8f5;
             }
         """)
 
