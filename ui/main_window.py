@@ -2,12 +2,13 @@
 from PyQt6.QtWidgets import (
     QMainWindow, QWidget, QSplitter, QVBoxLayout
 )
+from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import Qt
 from core.database import DatabaseManager
 from ui.category_panel import CategoryPanel
 from ui.notes_list import NotesList
 from ui.note_editor import NoteEditor
-
+from core.utils import get_resource_path
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -22,6 +23,10 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("WNotes")
         self.setMinimumSize(800, 540)
         self.resize(1100, 680)
+
+        icon_path = get_resource_path("assets/icons/icon.ico")
+        self.setWindowIcon(QIcon(str(icon_path)))  # ← añade esta línea
+
 
     def _setup_ui(self) -> None:
         central_widget = QWidget()

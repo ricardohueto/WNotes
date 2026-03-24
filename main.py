@@ -1,10 +1,11 @@
 # main.py
 import sys
 from pathlib import Path
+from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtGui import QFontDatabase
 from ui.main_window import MainWindow
-
+from core.utils import get_resource_path
 
 def get_resource_path(relative_path: str) -> Path:
     if hasattr(sys, "_MEIPASS"):
@@ -23,6 +24,9 @@ def main() -> None:
     app = QApplication(sys.argv)
     app.setApplicationName("WNotes")
     app.setOrganizationName("WNotes")
+
+    icon_path = get_resource_path("assets/icons/icon.ico")
+    app.setWindowIcon(QIcon(str(icon_path)))
 
     load_stylesheet(app)
 
