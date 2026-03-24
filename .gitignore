@@ -11,4 +11,7 @@ __pycache__/
 # PyInstaller
 dist/
 build/
-*.spec
+*.spec.bak
+
+# Database
+data/

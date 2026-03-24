@@ -6,8 +6,14 @@ from PyQt6.QtGui import QFontDatabase
 from ui.main_window import MainWindow
 
 
+def get_resource_path(relative_path: str) -> Path:
+    if hasattr(sys, "_MEIPASS"):
+        return Path(sys._MEIPASS) / relative_path
+    return Path(__file__).parent / relative_path
+
+
 def load_stylesheet(app: QApplication) -> None:
-    qss_path = Path(__file__).parent / "styles" / "theme.qss"
+    qss_path = get_resource_path("styles/theme.qss")
     if qss_path.exists():
         with open(qss_path, "r", encoding="utf-8") as f:
             app.setStyleSheet(f.read())
