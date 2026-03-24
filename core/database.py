@@ -1,9 +1,17 @@
 # core/database.py
+import sys
+import os
 import sqlite3
 from pathlib import Path
 from core.models import Category, Note
 
-DB_PATH = Path(__file__).parent.parent / "data" / "wnotes.db"
+
+if hasattr(sys, "_MEIPASS"):
+    _APP_DIR = Path(os.environ.get("APPDATA", Path.home())) / "WNotes"
+else:
+    _APP_DIR = Path(__file__).parent.parent / "data"
+
+DB_PATH = _APP_DIR / "wnotes.db"
 
 
 class DatabaseManager:
@@ -32,9 +40,27 @@ class DatabaseManager:
                     ON DELETE CASCADE
             )
         """)
+        self._seed_default_categories()
         self.connection.commit()
 
     # ── Categories ──────────────────────────────────────────
+
+    def _seed_default_categories(self) -> None:
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT COUNT(*) FROM categories")
+        count = cursor.fetchone()[0]
+        if count == 0:
+            cursor.execute("INSERT INTO categories (name) VALUES (?)", ("WELCOME",))
+            category_id = cursor.lastrowid
+            cursor.execute(
+                "INSERT INTO notes (title, content, category_id) VALUES (?, ?, ?)",
+                (
+                    "Welcome to WNotes!",
+                    "WNotes is a simple and clean notes app.\n\nHere are some tips to get started:\n\n- Create a new category from the left panel\n- Click '+ New note' to create your first note\n- Double click a category to rename it\n- Right click a category or note to delete it\n\nEnjoy! 🎉",
+                    category_id
+                )
+            )
+            self.connection.commit()
 
     def get_all_categories(self) -> list[Category]:
         cursor = self.connection.cursor()

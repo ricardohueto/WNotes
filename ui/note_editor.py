@@ -3,12 +3,15 @@ from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout,
     QLineEdit, QTextEdit, QPushButton, QMessageBox
 )
+from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtCore import Qt
 from core.database import DatabaseManager
 from core.models import Note
 
 
 class NoteEditor(QWidget):
+    note_saved = pyqtSignal(object)
+
     def __init__(self, db: DatabaseManager):
         super().__init__()
         self.db = db
@@ -122,6 +125,7 @@ class NoteEditor(QWidget):
         self.current_note.content = content
         self.db.update_note(self.current_note)
         self.btn_save.setStyleSheet("")
+        self.note_saved.emit(self.current_note)
 
     def _on_delete(self) -> None:
         if self.current_note is None:

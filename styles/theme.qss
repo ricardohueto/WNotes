@@ -74,12 +74,6 @@ QListWidget::item:hover {
     color: #111113;
 }
 
-QListWidget::item:selected {
-    background-color: #7c6af71a;
-    color: #a99df5;
-    border-left: 2px solid #7c6af7;
-}
-
 QPushButton {
     background-color: transparent;
     color: #5a5a6e;

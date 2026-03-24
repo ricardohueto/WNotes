@@ -28,6 +28,19 @@ class CategoryPanel(QWidget):
 
         self.list_widget = QListWidget()
 
+        self.list_widget.setStyleSheet("""
+            QListWidget {
+                outline: 0;
+            }
+            QListWidget::item:selected,
+            QListWidget::item:selected:active,
+            QListWidget::item:selected:!active {
+                background-color: #3d3472;
+                color: #a99df5;
+                border-left: 2px solid #7c6af7;
+            }
+        """)
+
         self.list_widget.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.list_widget.customContextMenuRequested.connect(self._show_context_menu)
 
@@ -84,6 +97,7 @@ class CategoryPanel(QWidget):
             category = self.db.create_category(name.strip())
             item = self._add_category_item(category)
             self.list_widget.setCurrentItem(item)
+            self.category_selected.emit(category.id)
 
     def _on_rename_category(self, item: QListWidgetItem) -> None:
         current_name = item.text()

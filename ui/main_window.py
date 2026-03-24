@@ -51,6 +51,7 @@ class MainWindow(QMainWindow):
         self.category_panel.category_selected.connect(self.note_editor.clear)
         self.notes_list.note_selected.connect(self.note_editor.load_note)
         self.notes_list.note_deleted.connect(self.note_editor.clear)
+        self.note_editor.note_saved.connect(self.notes_list.update_current_note_title)
 
     def _load_initial_data(self) -> None:
         self.category_panel.load_categories()
