@@ -138,13 +138,6 @@ QTextEdit:focus {
     color: #c0c0d8;
 }
 
-QWidget#titleBar {
-    background-color: #0d0d10;
-    border-bottom: 1px solid #2a2a2e;
-    min-height: 36px;
-    max-height: 36px;
-}
-
 QScrollBar:vertical {
     background-color: transparent;
     width: 6px;
