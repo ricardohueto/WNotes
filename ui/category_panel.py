@@ -23,7 +23,7 @@ class CategoryPanel(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
 
-        title = QLabel("Categories")
+        title = QLabel("Folders")
         title.setObjectName("sectionTitle")
 
         self.list_widget = QListWidget()
@@ -44,7 +44,7 @@ class CategoryPanel(QWidget):
         self.list_widget.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.list_widget.customContextMenuRequested.connect(self._show_context_menu)
 
-        self.btn_new = QPushButton("+ New category")
+        self.btn_new = QPushButton("+ New folder")
         self.btn_new.setFixedHeight(38)
         self.btn_new.setStyleSheet("""
             QPushButton {
@@ -91,7 +91,7 @@ class CategoryPanel(QWidget):
 
     def _on_new_category(self) -> None:
         name, ok = QInputDialog.getText(
-            self, "New category", "Category name:"
+            self, "New folder", "Folder name:"
         )
         if ok and name.strip():
             category = self.db.create_category(name.strip())
@@ -102,7 +102,7 @@ class CategoryPanel(QWidget):
     def _on_rename_category(self, item: QListWidgetItem) -> None:
         current_name = item.text()
         name, ok = QInputDialog.getText(
-            self, "Rename category", "New name:", text=current_name
+            self, "Rename folder", "New name:", text=current_name
         )
         if ok and name.strip():
             category_id = item.data(Qt.ItemDataRole.UserRole)
@@ -117,7 +117,7 @@ class CategoryPanel(QWidget):
         name = item.text()
         reply = QMessageBox.question(
             self,
-            "Delete category",
+            "Delete folder",
             f'Delete "{name}" and all its notes?',
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
         )

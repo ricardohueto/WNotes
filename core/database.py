@@ -56,7 +56,7 @@ class DatabaseManager:
                 "INSERT INTO notes (title, content, category_id) VALUES (?, ?, ?)",
                 (
                     "Welcome to WNotes!",
-                    "WNotes is a simple and clean notes app.\n\nHere are some tips to get started:\n\n- Create a new category from the left panel\n- Click '+ New note' to create your first note\n- Double click a category to rename it\n- Right click a category or note to delete it\n\nEnjoy! 🎉",
+                    "WNotes is a simple and clean notes app.\n\nHere are some tips to get started:\n\n- Create a new folder from the left panel\n- Click '+ New note' to create your first note\n- Double click a folder to rename it\n- Right click a folder or note to delete it\n\nEnjoy! 🎉",
                     category_id
                 )
             )
